@@ -3,8 +3,43 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class BoardingHouse extends Model
 {
-    //
+    protected $fillable = [
+      'name',
+      'slug',
+      'thumbnail',
+      'city_id',
+      'category_id',
+      'description',
+      'price',
+      'address',
+    ];
+
+    public function city(){
+      return $this->belongsTo(City::class);
+    }
+
+    public function category(){
+      return $this->belongsTo(Category::class);
+    }
+
+    public function room(){
+      return $this->hasMany(Room::class);
+    }
+
+    public function bonuses(){
+      return $this->hasMany(Bonus::class);
+    }
+
+    public function testimonials(){
+        return $this->hasMany(Testimonial::class);
+    }
+
+    public function transactions(){
+        return $this->hasMany(Transaction::class);
+    }
+
 }
