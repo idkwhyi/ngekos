@@ -14,6 +14,8 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Infolists\Components\Tabs;
 use Illuminate\Support\Str;
+use Filament\Infolists\Components\RepeatableEntry;
+use Filament\Infolists\Components\TextEntry;
 
 class BoardingHouseResource extends Resource
 {
@@ -27,6 +29,7 @@ class BoardingHouseResource extends Resource
             ->schema([
                 Forms\Components\Tabs::make('Tabs')
                     ->tabs([
+                        // * Main Information tab about Boarding House
                         Forms\Components\Tabs\Tab::make('Main Information')
                             ->schema([
                                 Forms\Components\FileUpload::make('thumbnail')
@@ -59,10 +62,23 @@ class BoardingHouseResource extends Resource
                                     ->required(),
 
                             ]),
-                        Forms\Components\Tabs\Tab::make('Tab 2')
+                        // * Bonus tab about Boarding House
+                        Forms\Components\Tabs\Tab::make('Ngekos Bonus')
                             ->schema([
-                                // ...
+                                Forms\Components\Repeater::make('bonuses') // * function relation name in BoardingHouse.php
+                                    ->schema([
+                                        Forms\Components\FileUpload::make('image')
+                                            ->image()
+                                            ->directory('bonuses')
+                                            ->required(),
+                                        Forms\Components\TextInput::make('name')
+                                            ->required(),
+                                        Forms\Components\RichEditor::make('description')
+                                            ->required(),
+                                    ])
+                                   
                             ]),
+                        // * 
                         Forms\Components\Tabs\Tab::make('Tab 3')
                             ->schema([
                                 // ...
