@@ -26,7 +26,7 @@ class BoardingHouse extends Model
       return $this->belongsTo(Category::class);
     }
 
-    public function room(){
+    public function rooms(){
       return $this->hasMany(Room::class);
     }
 

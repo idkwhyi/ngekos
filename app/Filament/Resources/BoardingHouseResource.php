@@ -62,10 +62,11 @@ class BoardingHouseResource extends Resource
                                     ->required(),
 
                             ]),
-                        // * Bonus tab about Boarding House
+                        // * Bonus tab 
                         Forms\Components\Tabs\Tab::make('Ngekos Bonus')
                             ->schema([
                                 Forms\Components\Repeater::make('bonuses') // * function relation name in BoardingHouse.php
+                                    ->relationship('bonuses')
                                     ->schema([
                                         Forms\Components\FileUpload::make('image')
                                             ->image()
@@ -76,12 +77,39 @@ class BoardingHouseResource extends Resource
                                         Forms\Components\RichEditor::make('description')
                                             ->required(),
                                     ])
-                                   
+
                             ]),
-                        // * 
-                        Forms\Components\Tabs\Tab::make('Tab 3')
+                        // * Room tab
+                        Forms\Components\Tabs\Tab::make('Rooms')
                             ->schema([
-                                // ...
+                                Forms\Components\Repeater::make('rooms') // * function relation name in BoardingHouse.php
+                                    ->relationship('rooms')
+                                    ->schema([
+                                        Forms\Components\TextInput::make('name')
+                                            ->required(),
+                                        Forms\Components\TextInput::make('room_type')
+                                            ->required(),
+                                        Forms\Components\TextInput::make('square_feet')
+                                            ->numeric()
+                                            ->required(),
+                                        Forms\Components\TextInput::make('capacity')
+                                            ->numeric()
+                                            ->required(),
+                                        Forms\Components\TextInput::make('price_per_month')
+                                            ->numeric()
+                                            ->prefix('IDR') // * Add information in the right side of input bar
+                                            ->required(),
+                                        Forms\Components\Toggle::make('is_available')
+                                            ->required(),
+                                        Forms\Components\Repeater::make('roomImage') // * function relation name in BoardingHouse.php
+                                        ->relationship('roomImage')
+                                        ->schema([
+                                            Forms\Components\FileUpload::make('image')
+                                            ->image()
+                                            ->directory('rooms')
+                                            ->required(),
+                                        ])
+                                    ])
                             ]),
                     ])->columnSpan(2)
             ]);
