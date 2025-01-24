@@ -23,8 +23,8 @@ return new class extends Migration
             $table->string('payment_status')->nullable();
             $table->date('start_date');
             $table->integer('duration');
-            $table->integer('total_amount');
-            $table->date('transaction_date');
+            $table->integer('total_amount')->nullable();
+            $table->date('transaction_date')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
